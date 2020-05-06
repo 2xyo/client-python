@@ -1,5 +1,5 @@
 requests==2.23.0
-PyYAML
+PyYAML==5.3.1
 setuptools
 pypandoc
 python-dateutil
