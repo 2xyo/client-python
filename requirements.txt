@@ -9,5 +9,5 @@ pytz==2020.1
 pika==1.1.0
 stix2-validator==2.0.0
 deprecated==1.2.9
-black
+black==19.10b0
 python-magic
