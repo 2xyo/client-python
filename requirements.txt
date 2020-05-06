@@ -6,7 +6,7 @@ python-dateutil==2.8.1
 datefinder==0.7.0
 stix2==1.4.0
 pytz==2020.1
-pika
+pika==1.1.0
 stix2-validator
 deprecated
 black
