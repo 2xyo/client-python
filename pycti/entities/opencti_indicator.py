@@ -1,6 +1,13 @@
 # coding: utf-8
 
+from __future__ import annotations
+
 import json
+
+from typing import Any, Dict, List, Optional, Union, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from pycti import OpenCTIApiClient
 
 
 class Indicator:
@@ -9,7 +16,7 @@ class Indicator:
     :param opencti: instance of :py:class:`~pycti.api.opencti_api_client.OpenCTIApiClient`
     """
 
-    def __init__(self, opencti):
+    def __init__(self, opencti: OpenCTIApiClient):
         self.opencti = opencti
         self.properties = """
             id
@@ -277,42 +284,111 @@ class Indicator:
             )
             return None
 
-    def create(self, **kwargs):
-        """
-        Create an Indicator object
+    def create(
+        self,
+        stix_id: Optional[str] = None,
+        createdBy: Optional[str] = None,
+        objectMarking: Optional[str] = None,
+        objectLabel: List[Optional[str]] = None,
+        externalReferences: List[Optional[str]] = None,
+        revoked: Optional[bool] = None,
+        confidence: Optional[int] = None,
+        lang: Optional[str] = None,
+        created: Optional[str] = None,
+        modified: Optional[str] = None,
+        pattern_type: Optional[str] = None,
+        pattern_version: Optional[str] = None,
+        pattern: Optional[str] = None,
+        name: Optional[str] = None,
+        description: Optional[str] = None,
+        indicator_types: List[Optional[str]] = None,
+        valid_from: Optional[str] = None,
+        valid_until: Optional[str] = None,
+        x_opencti_score: Optional[int] = 50,
+        x_opencti_detection: Optional[bool] = False,
+        x_opencti_main_observable_type: Optional[str] = None,
+        killChainPhases: List[Optional[str]] = None,
+        update=False,
+        **kwargs
+    ) -> Optional[Dict]:
+        """Indicators contain a pattern that can be used to detect suspicious or malicious cyber
+        activity. For example, an Indicator may be used to represent a set of malicious domains
+        and use the STIX Patterning Language to specify these domains.
 
-        :param str name: the name of the Indicator
-        :param str pattern: stix indicator pattern
-        :param str x_opencti_main_observable_type: type of the observable
-
-        :return: Indicator object
-        :rtype: Indicator
+        :param stix_id: The stix_id property uniquely identifies this object.
+        :param createdBy: The created_by_ref property specifies the id property of the identity
+            object that describes the entity that created this object.
+        :param objectMarking: The data markings represent restrictions, permissions, and other
+            guidance for how data can be used and shared.
+        :param objectLabel: The labels property specifies a set of terms used to describe this
+            object. The terms are user-defined or trust-group defined and their meaning is
+            outside the scope of this specification and MAY be ignored.
+            Where an object has a specific property defined in the specification for
+            characterizing subtypes of that object, the labels property MUST NOT be used for
+            that purpose.
+            For example, the Malware SDO has a property malware_types that contains a list of
+            Malware subtypes (dropper, RAT, etc.). In this example, the labels property cannot
+            be used to describe these Malware subtypes.
+        :param externalReferences: The external_references property specifies a list of external
+            references which refers to non-STIX information. This property is used to provide
+            one or more URLs, descriptions, or IDs to records in other systems.
+        :param revoked: The revoked property is only used by STIX Objects that support
+            versioning and indicates whether the object has been revoked.
+            Revoked objects are no longer considered valid by the object creator. Revoking an
+            object is permanent; future versions of the object with this id MUST NOT be created.
+        :param confidence: The confidence property identifies the confidence that the creator
+            has in the correctness of their data. The confidence value MUST be a number in the
+            range of 0-100.
+            If the confidence property is not present, then the confidence of the content is
+            unspecified.
+        :param lang: The lang property identifies the language of the text content in this
+            object. When present, it MUST be a language code conformant to [RFC5646]. If the
+            property is not present, then the language of the content is en (English).
+            This property SHOULD be present if the object type contains translatable text
+            properties (e.g. name, description).
+            The language of individual fields in this object MAY be overridden by the lang
+            property in granular markings.
+        :param created: The created property represents the time at which the object was
+            originally created.
+        :param modified: The modified property is only used by STIX Objects that support
+            versioning and represents the time that this particular version of the object was
+            last modified.
+            The object creator can use the time it deems most appropriate as the time this
+            version of the object was modified. The minimum precision MUST be milliseconds
+            (three digits after the decimal place in seconds), but MAY be more precise.
+            If the created property is defined, then the value of the modified property for a
+            given object version MUST be later than or equal to the value of the created
+            property. Object creators MUST set the modified property when creating a new version
+            of an object if the created property was set.
+        :param pattern_type: The pattern language used in this indicator
+        :param pattern_version: The version of the pattern language that is used for the data in
+            the pattern property which MUST match the type of pattern data included in the
+            pattern property.
+        :param pattern: The detection pattern for this Indicator MAY be expressed
+            as a STIX Pattern as specified in section 9 or another appropriate language such as
+            SNORT, YARA, etc
+        :param name: A name used to identify the Indicator.
+        :param description: A description that provides more details and context about the
+            Indicator, potentially including its purpose and its key characteristics.
+        :param indicator_types: A set of categorizations for this indicator.
+        :param valid_from: The time from which this Indicator is considered a valid indicator of
+            the behaviors it is related or represents.
+        :param valid_until: The time at which this Indicator should no longer be considered a
+            valid indicator of the behaviors it is related to or represents. If the valid_until
+            property is omitted, then there is no constraint on the latest time for which the
+            Indicator is valid.
+        :param x_opencti_score: [description], defaults to 50.
+        :param x_opencti_detection: [description].
+        :param x_opencti_main_observable_type: Type of the observable.
+        :param killChainPhases: The kill chain phase(s) to which this Indicator corresponds.
+        :param update: Update the Indicator if it already exists.
+        :return: Indicator object.
         """
-        stix_id = kwargs.get("stix_id", None)
-        created_by = kwargs.get("createdBy", None)
-        object_marking = kwargs.get("objectMarking", None)
-        object_label = kwargs.get("objectLabel", None)
-        external_references = kwargs.get("externalReferences", None)
-        revoked = kwargs.get("revoked", None)
-        confidence = kwargs.get("confidence", None)
-        lang = kwargs.get("lang", None)
-        created = kwargs.get("created", None)
-        modified = kwargs.get("modified", None)
-        pattern_type = kwargs.get("pattern_type", None)
-        pattern_version = kwargs.get("pattern_version", None)
-        pattern = kwargs.get("pattern", None)
-        name = kwargs.get("name", None)
-        description = kwargs.get("description", None)
-        indicator_types = kwargs.get("indicator_types", None)
-        valid_from = kwargs.get("valid_from", None)
-        valid_until = kwargs.get("valid_until", None)
-        x_opencti_score = kwargs.get("x_opencti_score", 50)
-        x_opencti_detection = kwargs.get("x_opencti_detection", False)
-        x_opencti_main_observable_type = kwargs.get(
-            "x_opencti_main_observable_type", None
-        )
-        kill_chain_phases = kwargs.get("killChainPhases", None)
-        update = kwargs.get("update", False)
+        created_by = createdBy
+        object_marking = objectMarking
+        object_label = objectLabel
+        external_references = externalReferences
+        kill_chain_phases = killChainPhases
 
         if (
             name is not None
@@ -379,6 +455,7 @@ class Indicator:
                 "error",
                 "[opencti_indicator] Missing parameters: name or pattern or x_opencti_main_observable_type",
             )
+            return None
 
     def add_stix_cyber_observable(self, **kwargs):
         """
