@@ -1,0 +1,20 @@
+{
+    "type": "bundle",
+    "id": "bundle--e5f3768a-01e2-4cbc-b40a-9f17e2153785",
+    "objects": [
+        {
+            "type": "process",
+            "spec_version": "2.1",
+            "id": "process--836e06e4-9b52-4dcd-b0bc-92d7944f9f34",
+            "pid": 314,
+            "extensions": {
+                "windows-process-ext": {
+                    "aslr_enabled": true,
+                    "dep_enabled": true,
+                    "priority": "HIGH_PRIORITY_CLASS",
+                    "owner_sid": "S-1-5-21-186985262-1144665072-74031268-1309"
+                }
+            }
+        }
+    ]
+}

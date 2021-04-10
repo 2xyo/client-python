@@ -1,0 +1,22 @@
+{
+    "type": "bundle",
+    "id": "bundle--8e9c3a01-8bd6-4789-b6c3-f1c26be8ee43",
+    "objects": [
+        {
+            "type": "artifact",
+            "spec_version": "2.1",
+            "id": "artifact--ca17bcf8-9846-5ab4-8662-75c1bf6e63ee",
+            "mime_type": "image/jpeg",
+            "payload_bin": "VBORw0KGgoAAAANSUhEUgAAADI=="
+        },
+        {
+            "type": "artifact",
+            "spec_version": "2.1",
+            "id": "artifact--6f437177-6e48-5cf8-9d9e-872a2bddd641",
+            "mime_type": "application/zip",
+            "payload_bin": "TXkgdm9pY2UgaXMgbXkgcGFzc3BvcnQ=",
+            "encryption_algorithm": "mime-type-indicated",
+            "decryption_key": "My voice is my passport"
+        }
+    ]
+}

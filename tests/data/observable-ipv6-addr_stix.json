@@ -1,0 +1,12 @@
+{
+    "type": "bundle",
+    "id": "bundle--42cbfd1b-4153-4623-99fa-6821baac3803",
+    "objects": [
+        {
+            "type": "mac-addr",
+            "spec_version": "2.1",
+            "id": "mac-addr--65cfcf98-8a6e-5a1b-8f61-379ac4f92d00",
+            "value": "d2:fb:49:24:37:18"
+        }
+    ]
+}
