@@ -1,6 +1,6 @@
 requests~=2.26.0
 PyYAML~=6.0
-setuptools~=60.1.0
+setuptools==84.2.1
 datefinder~=0.7
 stix2~=3.0.1
 pika~=1.2
