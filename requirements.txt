@@ -1,7 +1,7 @@
 requests~=2.26.0
 PyYAML~=6.0
 setuptools~=60.1.0
-datefinder~=0.7
+datefinder==1.0.0
 stix2~=3.0.1
 pika~=1.2
 sseclient~=0.0.27
